@@ -1,4 +1,5 @@
-const express = 'express';
+const express = require('express');
+const db = require('./userDb')
 
 const router = express.Router();
 
@@ -11,7 +12,12 @@ router.post('/:id/posts', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-
+    db.get()
+        .then(users => res.status(200).json(users))
+        .catch(err => {
+            console.log('Error inside of get users')
+            res.status(500).json({ error: "The users info could not be retrueved." })
+        })
 });
 
 router.get('/:id', (req, res) => {
